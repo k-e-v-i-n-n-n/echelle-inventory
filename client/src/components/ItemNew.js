@@ -1,12 +1,14 @@
 import {useState} from "react"
 
-const ItemEdit = ({setEditMode}) =>{
+const ItemNew = ({setEditMode}) =>{
 
-    const [itemEditForm, setItemEditForm] = useState({})
-console.log("itemEditForm", itemEditForm)
+    const [newItem, setNewItem] = useState({})
+
+console.log("item new", newItem)
+
     function updateItem(e){
 
-        setItemEditForm({...itemEditForm, [e.target.name]: e.target.value })
+        setNewItem({...newItem, [e.target.name]: e.target.value })
     }
 
     return(
@@ -18,11 +20,11 @@ console.log("itemEditForm", itemEditForm)
             <div className="s-e-d-buttons-container">
                 <button className="s-e-d-buttons">save</button>
                 <button className="s-e-d-buttons">delete</button>
-                <button className="s-e-d-buttons" onClick={() => setEditMode(false)}>cancel</button>
+                <button className="s-e-d-buttons">cancel</button>
             </div>
     </div>
 
     )
 }
 
-export default ItemEdit
+export default ItemNew

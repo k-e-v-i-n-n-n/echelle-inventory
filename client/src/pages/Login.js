@@ -1,5 +1,6 @@
 import {useState, useContext} from "react"
 import {UserContext} from "../context/UserContext.js"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -9,26 +10,57 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [isSignUp, setIsSignup] = useState(false)
+    const [errors, setErrors] = useState([])
 
     const {user, setUser} = useContext(UserContext)
+    let navigate = useNavigate()
    
+    const newSignUp = (e) =>{
+        e.preventDefault()
+            fetch("/signup", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(
+                    {username, password, password_confirmation: passwordConfirmation}
+                ),
+                })
+            .then((r) => {handleResponse(r)})}
+        
 
-const newSignUp = (e) =>{
+const logIn = (e) => {
+e.preventDefault()
+console.log("log in attempt", username, password)
+fetch("/login",  {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(
+        {username, password}
+    ),
+})
+.then((r) => handleResponse(r))
 
-    e.preventDefault()
-    console.log("submitted")
+}
 
-    fetch("/signup", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(
-        {username, password, password_confirmation: passwordConfirmation}
-      ),
-    })
-    .then((r) =>r.json())
-    .catch((err) => console.log(err))
-    .then((r) => {console.log(r); setUser(r)})
 
+function handleResponse(r){
+    if(r.ok)
+    {r.json().then((r) => {console.log(r); setUser(r); navigate("/")})}
+    else 
+    {r.json().then((err) => {console.log("console err", err.errors); setErrors(err.errors)})}
+
+}
+
+function clearErr(){
+
+    setErrors([])
+    clearForm()
+}
+
+function clearForm() {
+
+    setUserName("")
+    setPassword("")
+    setPasswordConfirmation("")
 }
 
 function condRend(e){
@@ -43,18 +75,22 @@ return(
         <form className="login-form">
 
             <label className="login-labels">Showroom</label>
-            <input value={username} type="text" placeholder="kevin@echelle.com" onChange={(e) => setUserName(e.target.value)} />
+            <input value={username} type="text" placeholder="kevin@echelle.com" onChange={(e) => {clearErr(); setUserName(e.target.value)}} />
             <label className="login-labels">Password</label>
             <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
           
             {isSignUp && <label className="login-labels">Confirm Password</label>}
             {isSignUp && <input value={passwordConfirmation} type="password" onChange={(e) => setPasswordConfirmation(e.target.value)}/>}  
+            {/* {errors &&   } */}
+                <div>
+                    {errors.map((err) => <p key={err} id="error-username">{err}</p>)}
 
+                </div>
                 <div className="login-button-container">
 
-                    {isSignUp ? <button className="login-buttons" type="submit" onClick={(e) => newSignUp(e)} >Submit</button> : <button className="login-buttons" type="submit">Login</button> }
-                    {!isSignUp &&< button className="login-buttons" type="submit" onClick={(e) => condRend(e)}>Create Account</button> }
-                    {isSignUp &&< button className="login-buttons" id="cancel" onClick={(e) => condRend(e)}>Cancel</button> }
+                    {isSignUp ? <button className="login-buttons" type="submit" onClick={(e) => newSignUp(e)} >Submit</button> : <button className="login-buttons" type="submit" onClick={(e) => logIn(e)} >Login</button> }
+                    {!isSignUp &&< button className="login-buttons" type="submit" onClick={(e) => {condRend(e); setErrors([])} }>Create Account</button> }
+                    {isSignUp &&< button className="login-buttons" id="cancel" onClick={(e) => {condRend(e); clearErr()}}>Cancel</button> }
                 </div>
 
         </form>

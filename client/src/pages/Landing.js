@@ -1,15 +1,14 @@
-
+import {useContext} from "react"
+import {UserContext} from "../context/UserContext.js"
 
 
 const Landing = () => {
 
+    const {user} = useContext(UserContext)
     return(
 
-        <div class="landing-pag">
-            <p>Login to manage your inventory</p>
-            {/* <img src={background} alt="black-and-white-ballerina"/> */}
-
-
+        <div className="landing-page">
+          {user? <p>Bonjour, {user.username}</p> : <p>Please Login</p> }  
         </div>
 
     )

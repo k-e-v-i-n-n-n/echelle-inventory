@@ -33,7 +33,7 @@ header .header-level-1 {
 }
 
 .header-item-container {
-  padding: 40px left;
+  /* padding: 40px left; */
   display: flex;
   align-items: center;
   padding: 0 60px 0 60px;
@@ -52,9 +52,14 @@ header .avatar {
 }
 
 #logout-button{
-
+  text-align: center;
   font-size: 12px;
   margin-left: 20px;
+}
+
+#nav-username{
+
+  font-size: 24px;
 }
 
                                             /* Header Level-2  */
@@ -63,11 +68,17 @@ header .header-level-2 {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   font-size: medium;
   gap: 80px;
 
   padding: 18px;
 }
+
+#designers {
+  justify-self: center;
+}
+
 
 li,
 button {
@@ -86,6 +97,37 @@ a:visited {
   font-weight: 600;
 }
 
+                                                  /* Landing Page */
+
+.landing-page{
+  display: flex;
+  justify-content: center;
+  font-size: 48px;
+}
+
+                                                  /* Designers Page */
+
+.designers-page{
+  display: flex;
+  justify-content: center;
+  font-size: 48px;
+}
+
+                                                    /* Add Page */
+                                            
+.add-page-level-1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.add-container{
+  display: flex;
+  justify-content: center;
+  
+}
+
                                                   /* Login Page */
 
 .login-container {
@@ -96,7 +138,6 @@ a:visited {
 .login-form {
   display: flex;
   flex-direction: column;
-  /* height: 300px; */
   width: 400px;
   justify-content: start;
   padding: 40px;
@@ -139,6 +180,13 @@ a:visited {
 
 #cancel:hover{
   background-color: rgb(162, 162, 162);
+}
+
+#error-username{
+  text-align: center;
+  color:rgb(205, 0, 0);
+  font-size: 12px;
+  margin-bottom: 0;
 }
 
                                               /* Items and Inventory */

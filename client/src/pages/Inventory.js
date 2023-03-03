@@ -8,7 +8,7 @@ const Inventory = () => {
             <Item/>
             <Item/>
             <Item/>
-            <ItemEdit/>
+            <Item/> 
         </div>
         
     )

@@ -33,26 +33,25 @@ const Header = () => {
                 <div className="header-item-container"> 
                     <Link to="/login">
 
-                        {user ? <p>{user.username}</p> : <p>Login</p>  }
+                        {user ? <p id="nav-username">{user.username}</p> : <p>Login</p>  }
                
                     </Link>
                     <img className="avatar" src={avatar} />
                     {user && <button id="logout-button" onClick={() => logout()}>Logout</button>}
                 </div>
 
-                
-
             </div>
-            <ul className="header-level-2">
+            <div className="header-level-2">
                     <Link to="/inventory">
-                    <li>Inventory</li>
+                    <p>Inventory</p>
                     </Link>
                     <Link to="/designers">
-                    <li>Designers</li>
+                    <p id="designers">Designers</p>
                     </Link>
-                    <li>Add/Edit</li>
-                
-            </ul>
+                    <Link to="/add">
+                    <p>Add Item/Designer</p>
+                    </Link>
+            </div>
 
         </header>
 
