@@ -1,21 +1,24 @@
-import {useState} from "react"
+import {useState, useContext} from "react"
 import ItemEdit from "./ItemEdit.js"
+import {UserContext} from "../context/UserContext"
 
-const Item = () => {
+const Item = ({item}) => {
 
     const [editMode, setEditMode] = useState(false)
-    console.log("edit mode", editMode)
+    const {user} = useContext(UserContext)
+    let {name, color, size, stock, id} = item
 
     return(
 
         <>
-        {editMode ? <ItemEdit setEditMode={setEditMode} />: <div className="item-container">
-                <p>Coat</p>
-                <p>Color</p>
-                <p>Size</p>
-                <p>Stock</p>
-                <button className="item-edit-button" onClick={() => setEditMode(true)}>edit</button>
-            </div>}
+        {editMode ? <ItemEdit key={id} setEditMode={setEditMode} item={item}/> : 
+        <div className="item-container">
+             <p>{name}</p>
+             <p>{color}</p>
+             <p>{size}</p>
+             <p>{stock}</p>
+             <button className="item-edit-button" onClick={() => setEditMode(true)}>edit</button>
+         </div>}
         </>
 
         

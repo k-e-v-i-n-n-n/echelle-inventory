@@ -4,11 +4,24 @@ const ItemNew = ({setEditMode}) =>{
 
     const [newItem, setNewItem] = useState({})
 
-console.log("item new", newItem)
-
     function updateItem(e){
 
         setNewItem({...newItem, [e.target.name]: e.target.value })
+    }
+
+    function createItem (){
+
+        fetch("/items", {
+
+            method: "POST",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({
+                name: newItem.name,
+                color: newItem.color,
+                size: newItem.size,
+                stock: newItem.stock,
+                designer_id: newItem.designer_id,})})
+                .then((r) => r.json).then((r) => console.log("create item res", r))
     }
 
     return(
@@ -18,7 +31,7 @@ console.log("item new", newItem)
             <input name="size" className="edit-input" placeholder="Size" onChange={updateItem}/>
             <input name="stock" className="edit-input" placeholder="Stock" onChange={updateItem}/>
             <div className="s-e-d-buttons-container">
-                <button className="s-e-d-buttons">save</button>
+                <button className="s-e-d-buttons" onClick={() => createItem()} >save</button>
                 <button className="s-e-d-buttons">delete</button>
                 <button className="s-e-d-buttons">cancel</button>
             </div>

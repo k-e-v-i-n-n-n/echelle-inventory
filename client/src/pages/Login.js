@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 
 
-const Login = () => {
+const Login = ({}) => {
 
     const [username, setUserName] = useState("")
     const [password, setPassword] = useState("")
@@ -26,7 +26,6 @@ const Login = () => {
                 })
             .then((r) => {handleResponse(r)})}
         
-
 const logIn = (e) => {
 e.preventDefault()
 console.log("log in attempt", username, password)
@@ -38,16 +37,13 @@ fetch("/login",  {
     ),
 })
 .then((r) => handleResponse(r))
-
 }
-
 
 function handleResponse(r){
     if(r.ok)
-    {r.json().then((r) => {console.log(r); setUser(r); navigate("/")})}
+    {r.json().then((r) => {setUser(r); navigate("/")})}
     else 
     {r.json().then((err) => {console.log("console err", err.errors); setErrors(err.errors)})}
-
 }
 
 function clearErr(){
@@ -83,7 +79,7 @@ return(
             {isSignUp && <input value={passwordConfirmation} type="password" onChange={(e) => setPasswordConfirmation(e.target.value)}/>}  
             {/* {errors &&   } */}
                 <div>
-                    {errors.map((err) => <p key={err} id="error-username">{err}</p>)}
+                    {errors?.map((err) => <p key={err} id="error-username">{err}</p>)}
 
                 </div>
                 <div className="login-button-container">

@@ -10,34 +10,40 @@ import {UserContext, UserProvider} from "./context/UserContext.js"
 
 
 const App = () => {
+  const [designers, setDesigners] = useState()
+  const [items, setItems] = useState()
+
   const {user, setUser} = useContext(UserContext)
   let navigate = useNavigate()
-
+console.log("this is user", user)
 
   useEffect(() =>{
     fetch("/me")
     .then((r) => {
-
       if (r.ok){
       r.json().then((r) => {console.log("auth is working!!"); setUser(r)})
       }
       else
       {
-      navigate("/login")}
-    })
+      navigate("/login")}})}, [])
 
-  }, [])
+// *************************************************** Global State Updates
 
+useEffect(() => {
+  setDesigners(user.designers)
+  setItems(user.items)
+}, [user])
 
+// *************************************************** 
 
   return (
     <>
         <Header/>
           <Routes>
             <Route path="/" element={<Landing/>}/>
-            <Route path="/designers" element={<Designers/>}/>
+            <Route path="/designers" element={<Designers />}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/inventory" element={<Inventory/>}/>
+            <Route path="/inventory" element={<Inventory setItems={setItems} />}/>
             <Route path="/add" element={<Add/>}/>
           </Routes>
       </>

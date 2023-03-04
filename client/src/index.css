@@ -109,8 +109,28 @@ a:visited {
 
 .designers-page{
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   font-size: 48px;
+}
+
+.designer-container{
+
+  width: 400px;
+  height: 90px;
+  border: rgb(201, 201, 201) solid .5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  margin: 4px;
+}
+
+.designer-name:hover{
+
+  font-weight: 500;
 }
 
                                                     /* Add Page */
