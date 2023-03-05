@@ -28,7 +28,6 @@ const Login = ({}) => {
         
 const logIn = (e) => {
 e.preventDefault()
-console.log("log in attempt", username, password)
 fetch("/login",  {
     method: "POST",
     headers: {"Content-Type": "application/json"},

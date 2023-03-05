@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2023_03_03_203410) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "color"
-    t.integer "size"
-    t.integer "stock"
+    t.string "size"
+    t.string "stock"
     t.integer "user_id"
     t.integer "designer_id"
     t.datetime "created_at", precision: 6, null: false

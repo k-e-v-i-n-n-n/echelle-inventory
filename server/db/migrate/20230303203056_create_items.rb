@@ -3,8 +3,8 @@ class CreateItems < ActiveRecord::Migration[6.1]
     create_table :items do |t|
       t.string :name
       t.string :color
-      t.integer :size
-      t.integer :stock
+      t.string :size
+      t.string :stock
       t.integer :user_id
       t.integer :designer_id
 
