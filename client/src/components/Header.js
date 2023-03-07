@@ -43,7 +43,7 @@ const Header = () => {
             </div>
             <div className="header-level-2">
                     <Link to="/inventory">
-                    <p>Inventory</p>
+                    <p >Inventory</p>
                     </Link>
                     <Link to="/designers">
                     <p id="designers">Designers</p>

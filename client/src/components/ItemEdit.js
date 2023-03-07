@@ -7,9 +7,6 @@ const ItemEdit = ({setEditMode, item}) =>{
     const {user, setUser} = useContext(UserContext)
     const [itemEdit, setitemEdit] = useState(item)
 
-    console.log("itemmm", item)
-    console.log("itemEDITTT", itemEdit)
-
     function updateItem(e){
         setitemEdit({...itemEdit, [e.target.name]: e.target.value })}
 

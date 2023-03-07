@@ -1,18 +1,18 @@
 import ItemNew from "../components/ItemNew.js"
 
+
 const Add = () => {
 
-
-
-
     return(
-        <div className="add-page-level-1">
-            <p>Add new item</p>
+    
+            
                 <div className="add-container">
-                    
-                <ItemNew/>
+                      <div className="add-component-containers"> 
+                        <p>Add Item</p>
+                        <ItemNew/>
+                     </div>
                 </div>
-        </div>
+     
     )
 }
 

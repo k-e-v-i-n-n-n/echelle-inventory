@@ -1,17 +1,33 @@
 import {useState, useContext} from "react"
 import { UserContext } from "../context/UserContext"
-import Item from "./Item"
 
-const ItemNew = ({setEditMode}) =>{
+
+const ItemNew = () =>{
     const {user, setUser} = useContext(UserContext)
+    const initialItemState = {name: '', color: '', size: '', stock: '', user_id: user.id, designer_id: ''}
+    const initialDesignerState = {name:'', id:''}
+  
+    const [newItem, setNewItem] = useState(initialItemState)
+    const [newDesigner, setNewDesigner] = useState(initialDesignerState)
 
-    const [newItem, setNewItem] = useState({name: '', color: '', size: '', stock: '', user_id: user.id, designer_id: 3})
+ 
 
+
+//******************************************* */ ITEM FUNCTIONALITY
+console.log("newItem", newItem)
+console.log("newDesigner", newDesigner)
     function updateItem(e){
         setNewItem({...newItem, [e.target.name]: e.target.value })}
 
-    function createItem (e){
+    function createItem (e, desRouteId){
     e.preventDefault()
+    console.log("desroute", desRouteId)
+        let designerId
+        if (desRouteId != undefined)
+        {designerId = desRouteId}
+        else
+        {designerId = newItem.designer_id}
+
         fetch("/items", {
             method:"POST",
             headers:{"Content-Type": "application/json"},
@@ -20,9 +36,9 @@ const ItemNew = ({setEditMode}) =>{
                 color: newItem.color,
                 size: newItem.size,
                 stock: newItem.stock,
-                designer_id: newItem.designer_id,
+                designer_id: designerId,
                 user_id: newItem.user_id})})
-                .then((r) => r.json()).then((r) => {console.log("create item res", r);newItemState(r)})}
+                .then((r) => r.json()).then((r) => {console.log("create item res", r);newItemState(r); resetState()})}
 
     function newItemState(i){
         let itemsArray = user.items
@@ -30,16 +46,80 @@ const ItemNew = ({setEditMode}) =>{
                      let updatedUser = {...user, items: itemsArray}
                         setUser(updatedUser)}
 
+function resetState(){
+
+    setNewItem(initialItemState)
+    setNewDesigner(initialDesignerState)
+}
+//******************************************* */ DESIGNER FUNCTIONALITY
+
+function addDesigner(e){
+e.preventDefault()
+    fetch("/designers", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name: newDesigner.name})})
+            .then((r) => r.json())
+            .then((r) => {designerState(r); handoffDesigner(r, e)})
+    }
+
+
+
+    function handoffDesigner(r,e){
+        createItem(e, r.id)
+    }
+
+    function designerState(newDesigner){
+
+        let desArray = user.designers
+            desArray.push(newDesigner)
+        let updatedUser = {...user, designers: desArray}
+        setUser(updatedUser)
+
+    }
+
+    function designerPop(e){
+        setNewDesigner({name: e.target.value})
+    }
+
+   
+
+function saveRoute(e){
+
+    if (newItem.designer_id != "" && newDesigner.name != "")
+    {alert("Please either select a designer, or add a new designer.")}
+else{
+
+    if (newItem.designer_id == "")
+    {addDesigner(e)}
+    else
+        {createItem(e)}
+}
+}
+
+let designerMap = user.designers?.map((designer) =>  <option name="designer_id" value={designer.id}>{designer.name}</option>)
+
+
+
+
     return(
-        <div className="item-edit-container">
-            <input name="name" className="edit-input" placeholder="Coat" onChange={updateItem}/>
-            <input name="color" className="edit-input" placeholder="Color" onChange={updateItem}/>
-            <input name="size" className="edit-input" placeholder="Size" onChange={updateItem}/>
-            <input name="stock" className="edit-input" placeholder="Stock" onChange={updateItem}/>
-            <div className="s-e-d-buttons-container">
-                <button className="s-e-d-buttons" onClick={(e) => createItem(e)}>save</button>
-                <button className="s-e-d-buttons">cancel</button>
-            </div>
+        <div className="item-add-container">
+            <input name="name" value={newItem.name} className="edit-input" placeholder="Coat" onChange={updateItem}/>
+            <input name="color" value={newItem.color} className="edit-input" placeholder="Color" onChange={updateItem}/>
+            <input name="size" value={newItem.size} className="edit-input" placeholder="Size" onChange={updateItem}/>
+            <input name="stock"value={newItem.stock}  className="edit-input" placeholder="Stock" onChange={updateItem}/>
+            <select className="edit-input" name="designer_id" value={newItem.designer_id} onChange={updateItem}>
+                <option value="" defaultValue >-Select Designer-</option>
+                {designerMap}
+            </select>
+                     <p style={{fontSize: "12px"}}>- Or add new designer -</p>
+                <input className="edit-input" name="name" value={newDesigner.name} placeholder="Enter designer name..." onChange={(e) => designerPop(e)}/>
+                <div className="s-e-d-buttons-container">
+                    <button className="s-e-d-buttons" onClick={(e) => saveRoute(e)}>save</button>
+                    <button className="s-e-d-buttons">clear</button>
+                </div>
+           
         </div>
 
     )
