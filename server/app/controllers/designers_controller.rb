@@ -9,18 +9,24 @@ class DesignersController < ApplicationController
     end
 
     def create
-        designer = Designer.find_or_create_by!(designer_params)
+        designer = Designer.create!(designer_params)
         render json: designer, status: :created
+    end
+
+    def destroy
+        designer = Designer.find(params[:id])
+        designer.destroy
+        head :no_content
     end
 
     private
 
     def designer_params
-        params.permit(:name, :user_id)
+        params.permit(:name, :user_id, :id)
     end
 
     def unprocessable(invalid)
-        render json: {errors: invalid.errors.full_messages}, status: :unprocessable_entity
+        render json: {errors: "Designer already exists, please select from dropdown"}, status: :unprocessable_entity
     end
 
     def not_found

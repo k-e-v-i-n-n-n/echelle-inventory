@@ -72,7 +72,7 @@ header .header-level-2 {
   font-size: medium;
   gap: 80px;
 
-  padding: 18px;
+  padding: 10px;
 }
 
 .header-level-2 p{
@@ -128,12 +128,34 @@ a:visited {
   align-items: center;
   border-radius: 2px;
   margin: 4px;
+  position: relative;
 }
 
-.designer-name:hover{
+.designer-name{
 
+  width: 300px;
+  height: 73px;
+  text-align: center;
+
+}
+.designer-name:hover, .designer-delete:hover {
+ 
   font-weight: 500;
 }
+
+.designer-delete{
+  position: absolute;
+  right: 10px;
+  top: 67px;
+  align-self: end;
+  font-size: 12px;
+}
+
+.instructions{
+  font-size: 14px;
+  font-style: italic;
+}
+
 
                                                   /* Login Page */
 
@@ -205,6 +227,7 @@ a:visited {
 }
 
 .item-container{
+  position: relative;
   width: 200px;
   height: 280px;
   border: rgb(201, 201, 201) solid .5px;
@@ -212,14 +235,14 @@ a:visited {
   flex-direction: column;
   align-items: center;
   border-radius: 2px;
-
   margin: 4px;
 
 }
 
 .item-edit-button{
+  position: absolute;
+  top: 220px;
   width: 60px;
-  /* height: 14px; */
   text-align: center;
   border: rgb(0, 0, 0) solid .5px;
   border-radius: 2px;
@@ -273,6 +296,10 @@ a:visited {
   /* margin-bottom: 100px; */
 }
 
+#add-another{
+  width: 80px;
+}
+
 .s-e-d-buttons:hover{
   font-weight: 600;
 }
@@ -308,6 +335,21 @@ a:visited {
 
   width: 200px;
   height: 430px;
+  border: rgb(201, 201, 201) solid .5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 2px;
+  margin: 4px;
+  padding-top: 14px;
+  /* padding-bottom: 14px; */
+}
+
+
+.item-saved-container{
+
+  width: 200px;
+  height: 200px;
   border: rgb(201, 201, 201) solid .5px;
   display: flex;
   flex-direction: column;

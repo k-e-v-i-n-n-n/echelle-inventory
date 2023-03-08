@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
     end
 
     def create
-        item = Item.create(item_params)
+        item = Item.create!(item_params)
         render json: item, status: :created
     end
 
@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
     end
 
     def unprocessable(invalid)
-        render json: {errors: invalid.errors.full_messages}, status: :unprocessable_entity
+        render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 
     def not_found
@@ -46,8 +46,3 @@ class ItemsController < ApplicationController
     end
 end
 
-# name: params[:name],
-# color: params[:color],
-# size: params[:size],
-# stock: params[:stock],
-# designer_id: params[:designer_id]

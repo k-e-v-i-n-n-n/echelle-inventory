@@ -1,4 +1,4 @@
-import {Routes, Route, BrowserRouter, useNavigate} from 'react-router-dom'
+import {Routes, Route, BrowserRouter, useNavigate, useParams} from 'react-router-dom'
 import {useState, useEffect, useContext} from "react"
 import Header from './components/Header'
 import Landing from './pages/Landing'
@@ -6,7 +6,8 @@ import Designers from './pages/Designers'
 import Login from './pages/Login'
 import Inventory from "./pages/Inventory"
 import Add from "./pages/Add"
-import {UserContext, UserProvider} from "./context/UserContext.js"
+import DesignerInventory from './pages/DesignerInventory'
+import {UserContext} from "./context/UserContext.js"
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
   const {user, setUser} = useContext(UserContext)
   let navigate = useNavigate()
 console.log("this is user", user)
+
 
   useEffect(() =>{
     fetch("/me")
@@ -41,10 +43,12 @@ useEffect(() => {
         <Header/>
           <Routes>
             <Route path="/" element={<Landing/>}/>
-            <Route path="/designers" element={<Designers />}/>
+            <Route path="/designers" element={<Designers designers={designers} />}/>
+            <Route path="/designers/:id" element={<DesignerInventory items={items} designers={designers}/>}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/inventory" element={<Inventory setItems={setItems} />}/>
+            <Route path="/inventory" element={<Inventory setItems={setItems} items={items} />}/>
             <Route path="/add" element={<Add/>}/>
+            
           </Routes>
       </>
 

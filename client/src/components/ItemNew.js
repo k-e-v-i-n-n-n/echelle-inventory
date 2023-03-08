@@ -9,13 +9,13 @@ const ItemNew = () =>{
   
     const [newItem, setNewItem] = useState(initialItemState)
     const [newDesigner, setNewDesigner] = useState(initialDesignerState)
-
- 
+    const [errors, setErrors] = useState()
+    const [errorsItem, setErrorsItem] = useState()
+    const [isSaved, setIsSaved] = useState(false)
 
 
 //******************************************* */ ITEM FUNCTIONALITY
-console.log("newItem", newItem)
-console.log("newDesigner", newDesigner)
+
     function updateItem(e){
         setNewItem({...newItem, [e.target.name]: e.target.value })}
 
@@ -23,7 +23,7 @@ console.log("newDesigner", newDesigner)
     e.preventDefault()
     console.log("desroute", desRouteId)
         let designerId
-        if (desRouteId != undefined)
+        if (desRouteId !== undefined)
         {designerId = desRouteId}
         else
         {designerId = newItem.designer_id}
@@ -38,8 +38,11 @@ console.log("newDesigner", newDesigner)
                 stock: newItem.stock,
                 designer_id: designerId,
                 user_id: newItem.user_id})})
-                .then((r) => r.json()).then((r) => {console.log("create item res", r);newItemState(r); resetState()})}
-
+                .then((r) => {if (r.ok){r.json().then((r) => {newItemState(r); resetState(); setIsSaved(true)})}
+                else
+                {r.json().then((r) => alert(r.errors))}
+            })}
+                
     function newItemState(i){
         let itemsArray = user.items
                 itemsArray.push(i)
@@ -47,10 +50,10 @@ console.log("newDesigner", newDesigner)
                         setUser(updatedUser)}
 
 function resetState(){
-
     setNewItem(initialItemState)
-    setNewDesigner(initialDesignerState)
-}
+    setNewDesigner(initialDesignerState)}
+
+
 //******************************************* */ DESIGNER FUNCTIONALITY
 
 function addDesigner(e){
@@ -60,11 +63,13 @@ e.preventDefault()
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             name: newDesigner.name})})
-            .then((r) => r.json())
-            .then((r) => {designerState(r); handoffDesigner(r, e)})
-    }
+            .then((r) => {
+                if (r.ok)
+                {r.json().then((r) => {designerState(r); handoffDesigner(r,e)})}
+                 else
+                {r.json().then((r) => {alert(r.errors); setNewDesigner(initialDesignerState)})}})}
 
-
+console.log("errors", errors, errorsItem)
 
     function handoffDesigner(r,e){
         createItem(e, r.id)
@@ -73,10 +78,14 @@ e.preventDefault()
     function designerState(newDesigner){
 
         let desArray = user.designers
-            desArray.push(newDesigner)
-        let updatedUser = {...user, designers: desArray}
-        setUser(updatedUser)
-
+        let desMap = desArray.map((des) => des.id)
+        console.log("des mAp", desMap)
+        if(desMap.includes(newDesigner.id))
+        {return null}
+        else
+         {  desArray.push(newDesigner)
+            let updatedUser = {...user, designers: desArray}
+            setUser(updatedUser)}
     }
 
     function designerPop(e){
@@ -87,16 +96,16 @@ e.preventDefault()
 
 function saveRoute(e){
 
-    if (newItem.designer_id != "" && newDesigner.name != "")
-    {alert("Please either select a designer, or add a new designer.")}
-else{
-
-    if (newItem.designer_id == "")
-    {addDesigner(e)}
+    if (newItem.name === '')
+    {alert("Please inclue item name.")}
     else
-        {createItem(e)}
-}
-}
+    {if (newItem.designer_id !== "" && newDesigner.name !== "")
+         {alert("Please either select a designer, or add a new designer.")}
+        else{
+        if (newItem.designer_id === "")
+        {addDesigner(e)}
+         else
+        {createItem(e)}}}}
 
 let designerMap = user.designers?.map((designer) =>  <option name="designer_id" value={designer.id}>{designer.name}</option>)
 
@@ -104,6 +113,18 @@ let designerMap = user.designers?.map((designer) =>  <option name="designer_id" 
 
 
     return(
+
+        <>
+
+        {isSaved? <div className="item-saved-container"><p>SAVED</p>
+
+        <button id="add-another" className="s-e-d-buttons" onClick={() => setIsSaved(false)}>add another</button>
+        
+        </div> : 
+
+
+<div className="add-component-containers"> 
+<p>Add Item</p>
         <div className="item-add-container">
             <input name="name" value={newItem.name} className="edit-input" placeholder="Coat" onChange={updateItem}/>
             <input name="color" value={newItem.color} className="edit-input" placeholder="Color" onChange={updateItem}/>
@@ -119,9 +140,11 @@ let designerMap = user.designers?.map((designer) =>  <option name="designer_id" 
                     <button className="s-e-d-buttons" onClick={(e) => saveRoute(e)}>save</button>
                     <button className="s-e-d-buttons">clear</button>
                 </div>
-           
-        </div>
-
+              
+            </div>
+            </div>
+        }
+</>
     )
 }
 

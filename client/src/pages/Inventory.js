@@ -2,11 +2,11 @@ import Item from "../components/Item.js"
 import {UserContext} from "../context/UserContext"
 import {useContext} from "react"
 
-const Inventory = () => {
+const Inventory = ({items}) => {
 
-    const {user} = useContext(UserContext)
+    // const {user} = useContext(UserContext)
 
-    let itemMap = user.items?.map((item) => ( <Item key={item.id} item={item}/>)
+    let itemMap = items?.map((item) => ( <Item key={item.id} item={item}/>)
     )
 
     return(

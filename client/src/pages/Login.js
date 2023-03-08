@@ -76,13 +76,10 @@ return(
           
             {isSignUp && <label className="login-labels">Confirm Password</label>}
             {isSignUp && <input value={passwordConfirmation} type="password" onChange={(e) => setPasswordConfirmation(e.target.value)}/>}  
-            {/* {errors &&   } */}
                 <div>
                     {errors?.map((err) => <p key={err} id="error-username">{err}</p>)}
-
                 </div>
                 <div className="login-button-container">
-
                     {isSignUp ? <button className="login-buttons" type="submit" onClick={(e) => newSignUp(e)} >Submit</button> : <button className="login-buttons" type="submit" onClick={(e) => logIn(e)} >Login</button> }
                     {!isSignUp &&< button className="login-buttons" type="submit" onClick={(e) => {condRend(e); setErrors([])} }>Create Account</button> }
                     {isSignUp &&< button className="login-buttons" id="cancel" onClick={(e) => {condRend(e); clearErr()}}>Cancel</button> }
