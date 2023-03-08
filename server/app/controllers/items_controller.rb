@@ -6,13 +6,13 @@ class ItemsController < ApplicationController
     before_action :authorize
 
     def update
-        item = Item.find(params[:id])
+        item = find_item
         item.update!(item_params)
         render json: item
     end
 
     def show
-        item = Item.find(params[:id])
+        item = find_item
         render json: item
     end
 
@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
     end
 
     def destroy
-        item = Item.find(params[:id])
+        item = find_item
         item.destroy
         head :no_content
     end
@@ -43,6 +43,10 @@ class ItemsController < ApplicationController
 
     def authorize
         render json: {errors: "Request not authorized, please login..."}, status: :unauthorized unless session.include? :user_id
+    end
+
+    def find_item
+        Item.find(params[:id])
     end
 end
 

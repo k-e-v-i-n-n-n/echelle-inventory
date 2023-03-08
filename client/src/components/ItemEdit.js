@@ -11,6 +11,11 @@ const ItemEdit = ({setEditMode, item}) =>{
         setitemEdit({...itemEdit, [e.target.name]: e.target.value })}
 
 function updateFetch(){
+
+    if (itemEdit.name == ""){alert("Please include item name")}
+    else
+    {
+
     fetch(`/items/${itemEdit.id}`, {
         method:"PATCH",
         headers:{"Content-Type": "application/json"},
@@ -20,7 +25,14 @@ function updateFetch(){
                 size: itemEdit.size,
                 stock: itemEdit.stock,
                 designer_id: itemEdit.designer_id})})
-            .then((r) => r.json()).then((r) => {console.log(r); setEditMode(false); editState()})}
+            .then((r) => {
+            if(r.ok)
+            {r.json().then((r) => {console.log(r); setEditMode(false); editState()})}
+            else
+            {r.json().then(() => {console.log(r); alert(r.errors)})}
+            })
+        
+        }}
 
 function deleteFetch(){
     fetch(`/items/${item.id}`,{

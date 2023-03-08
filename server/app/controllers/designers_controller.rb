@@ -1,7 +1,7 @@
 class DesignersController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
     rescue_from ActiveRecord::RecordInvalid, with: :unprocessable
-    
+    before_action :authorize
 
     def index
         user_data = Designer.all
@@ -31,6 +31,10 @@ class DesignersController < ApplicationController
 
     def not_found
         render json: {errors: "Designer not found..."}, status: :not_found
+    end
+
+    def authorize
+        render json: {errors: "Request not authorized, please login"}, status: :unauthorized unless session.include? :user_id
     end
 
 end

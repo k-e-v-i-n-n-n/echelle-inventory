@@ -4,15 +4,21 @@ import {useContext} from "react"
 
 const Inventory = ({items}) => {
 
-    // const {user} = useContext(UserContext)
+    const {user} = useContext(UserContext)
 
     let itemMap = items?.map((item) => ( <Item key={item.id} item={item}/>)
     )
 
     return(
-        <div className="inventory-container">
-            {itemMap}
-        </div>
+
+        <>
+        {user? <div className="inventory-container">
+            {itemMap} </div> : 
+            
+            <div className="landing-page">
+                <p>Please Login</p> 
+            </div>}
+        </>
         
     )
 }

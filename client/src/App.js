@@ -32,8 +32,8 @@ console.log("this is user", user)
 // *************************************************** Global State Updates
 
 useEffect(() => {
-  setDesigners(user.designers)
-  setItems(user.items)
+  setDesigners(user?.designers)
+  setItems(user?.items)
 }, [user])
 
 // *************************************************** 

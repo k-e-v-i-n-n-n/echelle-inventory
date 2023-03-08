@@ -5,16 +5,21 @@ import Designer from "../components/Designer"
 
 const Designers = ({designers}) => {
 
-    // const {user} = useContext(UserContext)
+    const {user} = useContext(UserContext)
 
     let designerMap = designers?.map((designer) => <Designer designer={designer} />)
 
     return(
-
-        <div className="designers-page">
+        <>
+        {user?  <div className="designers-page">
             <p className="instructions">Click a designer to see their items</p>
             {designerMap}
-        </div>
+        </div> 
+        :   <div className="landing-page">
+                <p>Please Login</p> 
+            </div>}
+        </>
+      
 
     )
 }
