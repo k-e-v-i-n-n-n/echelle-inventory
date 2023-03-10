@@ -31,7 +31,6 @@ function updateFetch(){
             else
             {r.json().then(() => {alert(r.errors)})}
             })
-        
         }}
 
 function deleteFetch(){

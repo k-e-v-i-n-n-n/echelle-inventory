@@ -2,8 +2,6 @@ import {useState, useContext} from "react"
 import {UserContext} from "../context/UserContext.js"
 import { useNavigate } from "react-router-dom"
 
-
-
 const Login = ({}) => {
 
     const [username, setUserName] = useState("")
@@ -42,11 +40,10 @@ function handleResponse(r){
     if(r.ok)
     {r.json().then((r) => {setUser(r); navigate("/")})}
     else 
-    {r.json().then((err) => {console.log("console err", err.errors); setErrors(err.errors)})}
+    {r.json().then((err) => {setErrors(err.errors)})}
 }
 
 function clearErr(){
-
     setErrors([])
     clearForm()
 }
@@ -66,9 +63,7 @@ function condRend(e){
 return(
 
     <div className="login-container">
-
         <form className="login-form">
-
             <label className="login-labels">Showroom</label>
             <input value={username} type="text" placeholder="kevin@echelle.com" onChange={(e) => {clearErr(); setUserName(e.target.value)}} />
             <label className="login-labels">Password</label>
@@ -84,13 +79,8 @@ return(
                     {!isSignUp &&< button className="login-buttons" type="submit" onClick={(e) => {condRend(e); setErrors([])} }>Create Account</button> }
                     {isSignUp &&< button className="login-buttons" id="cancel" onClick={(e) => {condRend(e); clearErr()}}>Cancel</button> }
                 </div>
-
         </form>
-        
-        
-    
     </div>
-
 )
 
 }

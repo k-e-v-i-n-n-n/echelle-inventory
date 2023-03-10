@@ -20,9 +20,6 @@ const Item = ({item}) => {
              <button className="item-edit-button" onClick={() => setEditMode(true)}>edit</button>
          </div>}
         </>
-
-        
-
     )
 }
 

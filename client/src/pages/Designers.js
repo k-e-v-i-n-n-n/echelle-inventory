@@ -19,8 +19,6 @@ const Designers = ({designers}) => {
                 <p>Please Login</p> 
             </div>}
         </>
-      
-
     )
 }
 

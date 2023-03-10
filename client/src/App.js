@@ -14,22 +14,18 @@ const App = () => {
   const [designers, setDesigners] = useState()
   const [items, setItems] = useState()
   const [globalDesigners, setGlobalDesigners] = useState()
-  console.log("global", globalDesigners)
 
   const {user, setUser} = useContext(UserContext)
   let navigate = useNavigate()
-console.log("this is user", user)
-
 
   useEffect(() =>{
     fetch("/me")
     .then((r) => {
       if (r.ok){
-      r.json().then((r) => {console.log("auth is working!!"); setUser(r)})
+      r.json().then((r) => {setUser(r)})
       }
       else
-      {
-      navigate("/login")}})}, [])
+      {navigate("/login")}})}, [])
 
 // *************************************************** Global State Updates
 
@@ -58,10 +54,8 @@ useEffect(() => {
             <Route path="/login" element={<Login />}/>
             <Route path="/inventory" element={<Inventory setItems={setItems} items={items} />}/>
             <Route path="/add" element={<Add globalDesigners={globalDesigners}/>}/>
-            
           </Routes>
       </>
-
     )
 }
 

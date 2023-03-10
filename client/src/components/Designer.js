@@ -8,11 +8,6 @@ const Designer = ({designer}) => {
     let {name, id} = designer
     const navigate = useNavigate()
 
-// function designerDelete(){
-//     fetch(`/designers/${id}`,{
-//         method:"DELETE"})
-//         .then(() => desStateUpdate())}
-
 function designerDelete() {
 
     fetch(`/delete/${user.id}`, {
@@ -22,22 +17,18 @@ function designerDelete() {
             designer_id: id})})
             .then((r) => {
             if(r.ok)
-            {console.log("delete res", r); desStateUpdate(); navigate("/designers")}
+            {desStateUpdate(); navigate("/designers")}
             else
             {}
             
-            
-        })
-}
 
+        })}
 
     function desStateUpdate(){
         let desFiltered = user.designers.filter((des) => des.id !== id)
         let itemsFiltered = user.items.filter((item) => item.designer_id !== id)
         let updatedUser = {...user, designers: desFiltered, items: itemsFiltered}
         setUser(updatedUser)}
-
-   
 
 return(
     <div key={id} className="designer-container">

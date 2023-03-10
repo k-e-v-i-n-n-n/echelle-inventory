@@ -20,7 +20,7 @@ let itemMap = itemsArray?.map((item) => ( <Item key={item.id} item={item}/>))
             <div className="designer-inventory-page">
                 <div className="designers-page">
                   <DesignerStats designer={designer} globalDesigners={globalDesigners} />
-                        <Designer designer={designer}/>
+                  <Designer designer={designer}/>
                       
                 </div>
                 <div className="inventory-container">

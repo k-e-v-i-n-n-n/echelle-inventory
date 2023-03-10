@@ -10,7 +10,6 @@ const Inventory = ({items}) => {
     )
 
     return(
-
         <>
         {user? <div className="inventory-container">
             {itemMap} </div> : 
@@ -18,8 +17,7 @@ const Inventory = ({items}) => {
             <div className="landing-page">
                 <p>Please Login</p> 
             </div>}
-        </>
-        
+        </>   
     )
 }
 

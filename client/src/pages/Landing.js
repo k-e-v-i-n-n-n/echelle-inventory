@@ -6,11 +6,9 @@ const Landing = () => {
 
     const {user} = useContext(UserContext)
     return(
-
         <div className="landing-page">
           {user? <p>Bonjour, {user.username}</p> : <p>Please Login</p> }  
         </div>
-
     )
 }
 

@@ -9,12 +9,7 @@ const ItemNew = ({globalDesigners}) =>{
   
     const [newItem, setNewItem] = useState(initialItemState)
     const [newDesigner, setNewDesigner] = useState(initialDesignerState)
-    const [allDesigners, setAllDesigners] = useState(initialDesignerState)
-    const [errors, setErrors] = useState()
-    const [errorsItem, setErrorsItem] = useState()
     const [isSaved, setIsSaved] = useState(false)
-
-
 
 //******************************************* */ ITEM FUNCTIONALITY
 
@@ -23,7 +18,6 @@ const ItemNew = ({globalDesigners}) =>{
 
     function createItem (e, desRouteId){
     e.preventDefault()
-    console.log("desroute", desRouteId)
         let designerId
         if (desRouteId !== undefined)
         {designerId = desRouteId}
@@ -40,7 +34,7 @@ const ItemNew = ({globalDesigners}) =>{
                 stock: newItem.stock,
                 designer_id: designerId,
                 user_id: newItem.user_id})})
-                .then((r) => {if (r.ok){r.json().then((r) => {newItemState(r); resetState(); setIsSaved(true);designerState({name: r.designer.name, id: r.designer.id}); console.log("create des res", r.designer.name)})}
+                .then((r) => {if (r.ok){r.json().then((r) => {newItemState(r); resetState(); setIsSaved(true);designerState({name: r.designer.name, id: r.designer.id})})}
                 else
                 {r.json().then((r) => alert(r.errors))}
             })}
@@ -71,8 +65,6 @@ e.preventDefault()
                  else
                 {r.json().then((r) => {alert(r.errors); setNewDesigner(initialDesignerState)})}})}
 
-console.log("errors", errors, errorsItem)
-
     function handoffDesigner(r,e){
         createItem(e, r.id)
     }
@@ -81,7 +73,6 @@ console.log("errors", errors, errorsItem)
 
         let desArray = user.designers
         let desMap = desArray.map((des) => des.id)
-        console.log("des mAp", desMap)
         if(desMap.includes(newDesigner.id))
         {return null}
         else
@@ -93,8 +84,6 @@ console.log("errors", errors, errorsItem)
     function designerPop(e){
         setNewDesigner({name: e.target.value})
     }
-
-   
 
 function saveRoute(e){
 
@@ -114,7 +103,6 @@ function saveRoute(e){
             {setNewItem({...newItem, designer_id: ""})}
         }
 
-let designerMap = user.designers?.map((designer) =>  <option name="designer_id" value={designer.id}>{designer.name}</option>)
 let globalDesignerMap = globalDesigners?.map((designer) => <option name="designer_id" value={designer.id}>{designer.name}</option>)
 
     return(
