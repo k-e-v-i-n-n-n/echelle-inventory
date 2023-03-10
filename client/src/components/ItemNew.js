@@ -140,7 +140,7 @@ let globalDesignerMap = globalDesigners?.map((designer) => <option name="designe
            
                 <div className="dropdown-first-container">
                     <div className="designer-dropdown">
-                        <p style={{fontSize: "12px"}}>- My designers -</p>
+                        <p style={{fontSize: "12px"}}>- All designers -</p>
                         <select className="edit-input" name="designer_id" value={newItem.designer_id} onChange={updateItem}>
                             <option value="" defaultValue selected={true} >-Select Designer-</option>
                             {globalDesignerMap}
