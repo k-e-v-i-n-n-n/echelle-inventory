@@ -26,13 +26,10 @@ function designerDelete() {
             else
             {}
             
+            
         })
 }
 
-// function desStateUpdate(){
-//     let desFiltered = user.designers.filter((des) => des.id !== id)
-//     let updatedUser = {...user, designers: desFiltered}
-//     setUser(updatedUser)}
 
     function desStateUpdate(){
         let desFiltered = user.designers.filter((des) => des.id !== id)

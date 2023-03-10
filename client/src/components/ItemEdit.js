@@ -27,9 +27,9 @@ function updateFetch(){
                 designer_id: itemEdit.designer_id})})
             .then((r) => {
             if(r.ok)
-            {r.json().then((r) => {console.log(r); setEditMode(false); editState()})}
+            {r.json().then((r) => {setEditMode(false); editState()})}
             else
-            {r.json().then(() => {console.log(r); alert(r.errors)})}
+            {r.json().then(() => {alert(r.errors)})}
             })
         
         }}
@@ -38,12 +38,21 @@ function deleteFetch(){
     fetch(`/items/${item.id}`,{
         method: "DELETE",
         headers: {"Content-Type": "application/json"}})
-       .then((r) => {console.log(r); deleteItem(item)})}
+       .then((r) => {
+       if(r.ok)
+       {deleteItem();}})}
 
 function deleteItem(){
-   let itemsFiltered = user.items.filter((i) => i.id !== item.id)
-        let userUpdated = {...user, items: itemsFiltered}
-             setUser(userUpdated)
+    let itemsFiltered = user.items.filter((i) => i.id !== item.id)
+    let secondFilter = itemsFiltered.filter((itemFil) => itemFil.designer_id == item.designer_id)
+
+        if(secondFilter.length === 0)
+            { 
+            let desFiltered = user.designers.filter((des) => des.id !== item.designer_id)
+            let updatedUser = {...user, designers: desFiltered, items: itemsFiltered}
+            setUser(updatedUser)}
+            else
+            {setUser({...user, items: itemsFiltered})}
 }
 
 function editState(){
