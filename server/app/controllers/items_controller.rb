@@ -27,6 +27,12 @@ class ItemsController < ApplicationController
         head :no_content
     end
 
+    def delete_designer_items
+        user = User.find(params[:id])
+        designer_items_delete = user.items.destroy_by(designer_id: params[:designer_id])
+        head :no_content
+    end
+
     private
 
     def item_params

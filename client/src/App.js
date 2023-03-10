@@ -13,6 +13,8 @@ import {UserContext} from "./context/UserContext.js"
 const App = () => {
   const [designers, setDesigners] = useState()
   const [items, setItems] = useState()
+  const [globalDesigners, setGlobalDesigners] = useState()
+  console.log("global", globalDesigners)
 
   const {user, setUser} = useContext(UserContext)
   let navigate = useNavigate()
@@ -36,6 +38,14 @@ useEffect(() => {
   setItems(user?.items)
 }, [user])
 
+useEffect(() => {
+
+  fetch('/designers', {
+      method: "GET"
+  })
+  .then((r) =>r.json()).then((r) => setGlobalDesigners(r))
+}, [designers])
+
 // *************************************************** 
 
   return (
@@ -43,11 +53,11 @@ useEffect(() => {
         <Header/>
           <Routes>
             <Route path="/" element={<Landing/>}/>
-            <Route path="/designers" element={<Designers designers={designers} />}/>
-            <Route path="/designers/:id" element={<DesignerInventory items={items} designers={designers}/>}/>
+            <Route path="/designers" element={<Designers  designers={designers} />}/>
+            <Route path="/designers/:id" element={<DesignerInventory globalDesigners={globalDesigners} items={items} designers={designers}/>}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/inventory" element={<Inventory setItems={setItems} items={items} />}/>
-            <Route path="/add" element={<Add/>}/>
+            <Route path="/add" element={<Add globalDesigners={globalDesigners}/>}/>
             
           </Routes>
       </>

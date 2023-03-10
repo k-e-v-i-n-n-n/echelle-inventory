@@ -17,5 +17,7 @@ Rails.application.routes.draw do
 
   delete "/logout", to: "sessions#destroy"
 
+  delete "/delete/:id", to: "items#delete_designer_items"
+
   
 end

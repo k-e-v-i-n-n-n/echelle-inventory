@@ -3,14 +3,14 @@ import { UserContext } from "../context/UserContext.js"
 import {useContext} from "react"
 
 
-const Add = () => {
+const Add = ({globalDesigners}) => {
 
     const {user} = useContext(UserContext)
     
     return(
     <>
         {user? <div className="add-container">
-                <ItemNew/>
+                <ItemNew globalDesigners={globalDesigners}/>
                  </div>
             :
                 <div className="landing-page">

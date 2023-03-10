@@ -1,10 +1,11 @@
 import {useParams} from "react-router-dom"
 import Item from "../components/Item"
 import Designer from "../components/Designer"
+import DesignerStats from "../components/DesignerStats"
 import { useContext } from "react"
 import { UserContext } from "../context/UserContext"
 
-const DesignerInventory = ({designers, items}) => {
+const DesignerInventory = ({designers, items, globalDesigners}) => {
 const {id} = useParams()
 
 const {user} = useContext(UserContext)
@@ -18,7 +19,9 @@ let itemMap = itemsArray?.map((item) => ( <Item key={item.id} item={item}/>))
         {user?   
             <div className="designer-inventory-page">
                 <div className="designers-page">
+                  <DesignerStats designer={designer} globalDesigners={globalDesigners} />
                         <Designer designer={designer}/>
+                      
                 </div>
                 <div className="inventory-container">
                     {itemMap}

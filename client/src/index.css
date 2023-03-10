@@ -138,6 +138,16 @@ a:visited {
   text-align: center;
 
 }
+
+.total-users{
+  /* position: absolute; */
+  font-size: 12px;
+  font-weight: 300;
+  /* font-style: italic; */
+  /* top: 60px;
+  right: 54px; */
+  text-align: center;
+}
 .designer-name:hover, .designer-delete:hover {
  
   font-weight: 500;
@@ -149,6 +159,7 @@ a:visited {
   top: 67px;
   align-self: end;
   font-size: 12px;
+  font-style: italic;
 }
 
 .instructions{
@@ -241,6 +252,7 @@ a:visited {
 
 .item-edit-button{
   position: absolute;
+  right: 42px;
   top: 220px;
   width: 60px;
   text-align: center;
@@ -275,6 +287,7 @@ a:visited {
 
 .edit-input{
   margin: 14px;
+  width: 170px;
 }
 
 .s-e-d-buttons-container{
@@ -313,31 +326,62 @@ a:visited {
   flex-direction: column;
 } */
 
-.add-container{
+/* .add-container{
   display: flex;
   justify-content: center;
   border: rgb(201, 201, 201) solid .5px;
   border-radius: 2px;
   padding: 14px;
 
-}
+} */
 
-.add-component-containers{
+.add-component-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.designer-options-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  /* height: 300px; */
+  border: rgb(201, 201, 201) solid 1px;
+  border-radius: 2px;
+}
+
+.dropdown-first-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.designer-dropdown{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
                                                 /* Item ADD */
+
+.add-page{
+  display: flex;
+  justify-content: center;
+}
 
 .item-add-container{
 
-  width: 200px;
-  height: 430px;
+  width: 400px;
+  height: 510px;
   border: rgb(201, 201, 201) solid .5px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   border-radius: 2px;
   margin: 4px;
