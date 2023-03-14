@@ -32,8 +32,7 @@ const ItemNew = ({globalDesigners}) =>{
                 color: newItem.color,
                 size: newItem.size,
                 stock: newItem.stock,
-                designer_id: designerId,
-                user_id: newItem.user_id})})
+                designer_id: designerId})})
                 .then((r) => {if (r.ok){r.json().then((r) => {newItemState(r); resetState(); setIsSaved(true);designerState({name: r.designer.name, id: r.designer.id})})}
                 else
                 {r.json().then((r) => alert(r.errors))}

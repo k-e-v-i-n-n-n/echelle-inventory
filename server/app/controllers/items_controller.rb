@@ -17,7 +17,8 @@ class ItemsController < ApplicationController
     end
 
     def create
-        item = Item.create!(item_params)
+        user = User.find_by(id: session[:user_id])
+        item = user.items.create!(item_params)
         render json: item, status: :created
     end
 
@@ -36,7 +37,7 @@ class ItemsController < ApplicationController
     private
 
     def item_params
-        params.permit(:name, :color, :size, :stock, :designer_id, :user_id)
+        params.permit(:name, :color, :size, :stock, :designer_id)
     end
 
     def unprocessable(invalid)
