@@ -89,8 +89,12 @@ function saveRoute(e){
     if (newItem.name === '')
     {alert("Please inclue item name.")}
     else
-    {if (newItem.designer_id !== "" && newDesigner.name !== "")
-         {{alert("Please either select a designer, or add a new designer."); setNewDesigner(initialDesignerState); setNewItem({...newItem, name: "", designer_id: ""})}}
+        {if (newItem.designer_id !== "" && newDesigner.name !== "")
+        {{alert("Please either select a designer, or add a new designer."); setNewDesigner(initialDesignerState); setNewItem({...newItem, name: "", designer_id: ""})}}
+        
+        else if(newItem.designer_id == "" && newDesigner.name == "")
+        {alert("Please either select a designer, or add a new designer.")}
+        
         else{
         if (newItem.designer_id === "")
         {addDesigner(e)}

@@ -26,7 +26,7 @@ class DesignersController < ApplicationController
     end
 
     def unprocessable(invalid)
-        render json: {errors: "Designer already exists, please select from dropdown"}, status: :unprocessable_entity
+        render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 
     def not_found
