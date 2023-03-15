@@ -20,4 +20,4 @@ Inventory
 
 Designers
 
-    Click the designers heading to view a list of all your designers. Click on an idividual designer to display that designer's inventory. You will also notice a statistic that indicates how many other showrooms are representing that designer.
+    Click the designers heading to view a list of all your designers. Click on an individual designer to display that designer's inventory. You will also notice a statistic that indicates how many other showrooms are representing that designer.
