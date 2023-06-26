@@ -10,9 +10,12 @@ const {id} = useParams()
 
 const {user} = useContext(UserContext)
 
+
 let designer = designers?.find((des) => id == des.id)
 let itemsArray = items?.filter((item) => item.designer_id == id)
 let itemMap = itemsArray?.map((item) => ( <Item key={item.id} item={item}/>))
+
+console.log("designer", designer)
 
     return(
     <>

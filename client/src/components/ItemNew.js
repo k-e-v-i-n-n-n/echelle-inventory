@@ -40,9 +40,9 @@ const ItemNew = ({globalDesigners}) =>{
                 
     function newItemState(i){
         let itemsArray = user.items
-                itemsArray.push(i)
-                     let updatedUser = {...user, items: itemsArray}
-                        setUser(updatedUser)}
+        itemsArray.push(i)
+        let updatedUser = {...user, items: itemsArray}
+        setUser(updatedUser)}
 
 function resetState(){
     setNewItem(initialItemState)

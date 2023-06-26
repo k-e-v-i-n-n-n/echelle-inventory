@@ -3,6 +3,18 @@ class DesignersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :unprocessable
     before_action :authorize
 
+
+    # a = [ "a", "b", "c" ]
+    # a.each {|x| print x, " -- " }
+
+    def busy_designers
+
+        designers = Designer.all
+        designers_items = designers.filter {|des| des.items.length >= params[:no].to_i }
+        render json: designers_items
+        
+    end
+
     def index
         user_data = Designer.all
         render json: user_data
@@ -18,6 +30,7 @@ class DesignersController < ApplicationController
         designer.destroy
         head :no_content
     end
+
 
     private
 

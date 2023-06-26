@@ -9,7 +9,6 @@ import Add from "./pages/Add"
 import DesignerInventory from './pages/DesignerInventory'
 import {UserContext} from "./context/UserContext.js"
 
-
 const App = () => {
   const [designers, setDesigners] = useState()
   const [items, setItems] = useState()
@@ -17,6 +16,8 @@ const App = () => {
 
   const {user, setUser} = useContext(UserContext)
   let navigate = useNavigate()
+
+  console.log("user", user)
 
   useEffect(() =>{
     fetch("/me")
